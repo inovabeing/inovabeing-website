@@ -189,7 +189,7 @@ ${formData.fullName}`
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             Thank you for your interest in joining our AI team at Inovabeing!
             We've received your application and will be reviewing it shortly. You'll receive the assignment from 
-            tech@inovabeing.com in the next few hours. If you don’t see it, feel free to reach out to us directly.
+            tech@inovabeing.com in the next few hours. If you don't see it, feel free to reach out to us directly.
           </p>
           <div className="space-y-3">
             <Button onClick={onBack} variant="outline" className="mr-4">
