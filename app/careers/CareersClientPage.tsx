@@ -143,7 +143,7 @@ export function CareersClientPage() {
                     <p className="text-gray-600 dark:text-gray-300">{job.description}</p>
 
                     <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Requirements:</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">What You'll Do:</h4>
                       <ul className="space-y-2">
                         {job.thingsYoullDo.map((req, index) => (
                           <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
@@ -179,7 +179,7 @@ export function CareersClientPage() {
                     </div>
 
                     <div className="pt-4">
-                    Ready to build the future with us?
+                    Ready to build the future with us? <span className="text-green-500 mt-1"></span>
                       <Button
                         onClick={() => handleApplyClick(job.id)}
                         className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-2"
