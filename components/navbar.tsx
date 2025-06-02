@@ -53,6 +53,7 @@ export function Navbar() {
       ],
     },
     { name: "Tech Arsenal", href: "/tech-arsenal", dropdown: null },
+    { name: "Careers", href: "/careers", dropdown: null },
     { name: "Pricing", href: "/pricing", dropdown: null },
     { name: "Contact", href: "/contact", dropdown: null },
   ]
