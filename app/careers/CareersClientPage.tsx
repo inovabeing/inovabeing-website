@@ -15,6 +15,7 @@ interface JobOpening {
   type: string
   experience: string
   description: string
+  thingsYoullDo: string[]
   requirements: string[]
   benefits: string[]
   isActive: boolean
@@ -28,24 +29,27 @@ const jobOpenings: JobOpening[] = [
     location: "Remote / Hybrid",
     type: "Internship",
     experience: "Entry Level",
-    description:
-      "Join our dynamic AI team and gain hands-on experience in cutting-edge artificial intelligence projects. You'll work alongside experienced developers and data scientists to build innovative AI solutions that transform businesses.",
+    description: "We’re looking for driven interns to join our AI development team at Inovabeing Technologies Pvt Ltd. This 3-month internship offers hands-on experience working directly with the founder on real-world AI use cases that solve real business problems. High performers may be considered for full-time roles.",
+    thingsYoullDo: [
+      "Contribute to AI-powered projects across automation, data processing, and tool integration",
+      "Collaborate with experienced developers and data scientists",
+      "Build, test, and deploy AI-driven workflows using modern tech stacks"
+    ],
     requirements: [
-      "Currently pursuing or recently completed degree in Computer Science, AI, ML, or related field",
-      "Basic understanding of Python programming",
+      "Pursuing or recently completed a degree in Computer Science, AI/ML, or related fields",
+      "Basic knowledge of Python",
       "Familiarity with machine learning concepts",
-      "Strong problem-solving skills and analytical thinking",
-      "Excellent communication and teamwork abilities",
-      "Eagerness to learn and adapt to new technologies",
+      "Strong problem-solving mindset",
+      "Good communication and collaboration skillsExcellent communication and teamwork abilities",
+      "Curiosity and willingness to learn fast",
     ],
     benefits: [
-      "Hands-on experience with real-world AI projects",
-      "Mentorship from industry experts",
-      "Flexible working hours",
-      "Remote/hybrid work options",
+      "Real-world AI project experience",
+      "Direct mentorship from the founder and AI leads",
+      "Flexible work hours (remote/hybrid)",
       "Certificate of completion",
-      "Potential for full-time conversion",
-      "Access to cutting-edge AI tools and technologies",
+      "Access to latest AI tools & platforms",
+      "Opportunity for full-time placement post-internship"
     ],
     isActive: true,
   },
@@ -141,6 +145,18 @@ export function CareersClientPage() {
                     <div>
                       <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Requirements:</h4>
                       <ul className="space-y-2">
+                        {job.thingsYoullDo.map((req, index) => (
+                          <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
+                            <span className="text-blue-500 mt-1">•</span>
+                            <span>{req}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Requirements:</h4>
+                      <ul className="space-y-2">
                         {job.requirements.map((req, index) => (
                           <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
                             <span className="text-blue-500 mt-1">•</span>
@@ -163,6 +179,7 @@ export function CareersClientPage() {
                     </div>
 
                     <div className="pt-4">
+                    Ready to build the future with us?
                       <Button
                         onClick={() => handleApplyClick(job.id)}
                         className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-2"
