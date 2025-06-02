@@ -187,8 +187,9 @@ ${formData.fullName}`
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Application Submitted!</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Thank you for your interest in joining our AI team. We've received your application and will review it
-            shortly. You can expect to hear from us within 3-5 business days.
+            Thank you for your interest in joining our AI team at Inovabeing!
+            We've received your application and will be reviewing it shortly. You'll receive the assignment from 
+            tech@inovabeing.com in the next few hours. If you don’t see it, feel free to reach out to us directly.
           </p>
           <div className="space-y-3">
             <Button onClick={onBack} variant="outline" className="mr-4">
