@@ -51,7 +51,7 @@ const jobOpenings: JobOpening[] = [
       "Access to latest AI tools & platforms",
       "Opportunity for full-time placement post-internship"
     ],
-    isActive: true,
+    isActive: false,
   },
 ]
 
