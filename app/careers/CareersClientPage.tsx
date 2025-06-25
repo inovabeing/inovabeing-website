@@ -53,6 +53,38 @@ const jobOpenings: JobOpening[] = [
     ],
     isActive: false,
   },
+   {
+    id: "ai-intern-2025",
+    title: "AI Website Builder Internship",
+    department: "AI Development",
+    location: "Remote / Hybrid",
+    type: "Internship",
+    experience: "Entry Level",
+    description: "We’re looking for driven interns to join our AI development team at Inovabeing Technologies Pvt Ltd. This 3-month internship offers hands-on experience working directly with the founder on real-world AI use cases that solve real business problems. High performers may be considered for full-time roles.",
+    thingsYoullDo: [
+      "Build and launch modern web apps using React, Next.js, and AI-powered tools (v0.dev, Replit, Copilot, etc.)",
+      "Integrate APIs, design slick interfaces, and automate workflows",
+      "Solve real business challenges and see your work go live",
+      "Collaborate in a fast-paced, product-driven team",
+    ],
+    requirements: [
+      "Have solid React.js and JavaScript skills",
+      "Be comfortable with modern frameworks (Next.js, etc.)",
+      "Know how to use AI coding tools (v0.dev, Replit, Copilot, or similar)",
+      "Be able to build and integrate APIs",
+      "Love shipping, learning, and solving real problems",
+    ],
+    benefits: [
+      "Real-world product experience",
+      "Mentorship and hands-on learning",
+      "Flexible hours",
+      "Internship certificate",
+      "Early access to the latest AI dev tools",
+      "Path to a full-time role",
+      "Monthly stipend: ₹10K",
+    ],
+    isActive: true,
+  },
 ]
 
 export function CareersClientPage() {
