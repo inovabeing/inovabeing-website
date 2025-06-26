@@ -56,8 +56,8 @@ const jobOpenings: JobOpening[] = [
    {
     id: "ai-intern-2025",
     title: "Product Engineer – AI Web Stack (Internship) @ Inovabeing",
-    department: "AI Development | 3 Months | Work directly with the founder | 1 position only",
-    location: "Remote/Hybrid",
+    department: "AI Development | 3 Months | Work directly with the founder | 1 position only | Hyderabad",
+    location: "Hybrid",
     type: "Internship",
     experience: "Entry Level",
     description: "Are you ready to design, build, and launch AI-powered web products at startup speed? Join Inovabeing as a Product Engineer – AI Web Stack (Internship) and take ownership from day one.",
@@ -79,7 +79,7 @@ const jobOpenings: JobOpening[] = [
     benefits: [
       "End-to-end product building experience",
       "Direct mentorship from the founder",
-      "Flexible hours, remote/hybrid freedom",
+      "Flexible 5- hours freedom",
       "20–25 hours/week",
       "Internship certificate",
       "Access to latest AI tools and platforms",
