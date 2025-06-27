@@ -80,7 +80,6 @@ const jobOpenings: JobOpening[] = [
       "End-to-end product building experience",
       "Direct mentorship from the founder",
       "Flexible 5- hours freedom",
-      "20–25 hours/week",
       "Internship certificate",
       "Access to latest AI tools and platforms",
       "Priority for a full-time offer",
