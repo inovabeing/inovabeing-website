@@ -322,7 +322,11 @@ ${formData.fullName}`
                   id="phone"
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => handleInputChange("phone", e.target.value)}
+                  onChange={(e) => {
+                    // Allow only digits and common phone formatting characters while typing
+                    const value = e.target.value.replace(/[^\d\s\-$$$$]/g, "")
+                    handleInputChange("phone", value)
+                  }}
                   placeholder="Enter your phone number"
                   className={errors.phone ? "border-red-500" : ""}
                 />
