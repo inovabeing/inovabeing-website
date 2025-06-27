@@ -76,12 +76,10 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
     } else {
       // Remove any non-digit characters for validation
       const cleanPhone = formData.phone.replace(/\D/g, "")
-      if (cleanPhone.length < 10) {
-        newErrors.phone = "Phone number must be at least 10 digits"
-      } else if (cleanPhone.length > 15) {
-        newErrors.phone = "Phone number is too long"
-      } else if (!/^\d+$/.test(cleanPhone)) {
-        newErrors.phone = "Phone number must contain only digits"
+      if (cleanPhone.length !== 10) {
+        newErrors.phone = "Phone number must be exactly 10 digits"
+      } else if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+        newErrors.phone = "Phone number must start with 6, 7, 8, or 9 and be 10 digits long"
       }
     }
 
