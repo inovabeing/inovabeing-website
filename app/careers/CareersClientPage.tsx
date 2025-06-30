@@ -85,7 +85,7 @@ const jobOpenings: JobOpening[] = [
       "Priority for a full-time offer",
       "Monthly stipend: ₹10,000–₹15,000 (based on experience/performance)",
     ],
-    isActive: true,
+    isActive: false,
   },
 ]
 
