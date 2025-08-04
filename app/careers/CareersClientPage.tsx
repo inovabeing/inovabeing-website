@@ -87,6 +87,39 @@ const jobOpenings: JobOpening[] = [
     ],
     isActive: false,
   },
+  {
+    id: "social-media-associate",
+    title: "Social Media & Campaign Associate",
+    location: "Hybrid (Hyderabad preferred)",
+    type: "Full-Time",
+    experience: "1-2 years",
+    description:
+      "We're hiring a full-time Social Media & Campaign Associate who's responsible for handling clients' brand presence across LinkedIn, Instagram, YouTube, and other digital platforms. You'll manage daily content execution, growth campaigns, and community engagement, supporting both awareness and lead-generation goals.",
+    thingsYoullDo: [
+      "Plan and post content (carousels, reels, short-form videos, hooks) across key platforms",
+      "Collaborate with the founder for thought-leadership content and launch campaigns",
+      "Track and optimise campaign performance (organic and paid)",
+      "Create growth-focused content calendars",
+      "Support inbound lead-gen efforts via content and performance creatives",
+      "Engage with online communities and drive visibility in the AI/startup space",
+    ],
+    requirements: [
+      "1–2 years of experience in digital marketing or social media (agency/startup preferred)",
+      "Firm grasp of content formats: Reels, carousels, short video, copywriting",
+      "Understanding of platforms: LinkedIn, Instagram, Meta Ads (basic knowledge is a plus)",
+      "Familiarity with tools like Canva, CapCut, Notion, Buffer/Hootsuite, ChatGPT",
+      "Comfortable working in a fast-paced, outcome-driven environment",
+      "Bonus: Interest in AI, automation, or startups",
+    ],
+    benefits: [
+      "Monthly Salary: ₹25,000 (1-2 years of experience)",
+      "Work Mode: Hybrid (2–3 days/week onsite)",
+      "Performance Bonus: post-probation based on campaign KPIs",
+      "Learning support (access to paid AI/growth courses if relevant)",
+      "Flexible hours and creative freedom",
+    ],
+    isActive: true,
+  },
 ]
 
 export function CareersClientPage() {

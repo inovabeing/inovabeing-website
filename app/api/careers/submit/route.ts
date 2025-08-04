@@ -3,9 +3,9 @@ import { type NextRequest, NextResponse } from "next/server"
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { fullName, email, phone, message } = body
+    const { fullName, email, phone, message, jobTitle } = body
 
-    console.log("Received career application:", { fullName, email, phone, message: message ? "provided" : "empty" })
+    console.log("Received career application:", { fullName, email, phone, message: message ? "provided" : "empty", jobTitle })
 
     // Validate required fields
     if (!fullName || !email || !phone) {
@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
     formData.append("field-1", email.trim())
     formData.append("field-2", phone.trim())
     formData.append("field-3", message?.trim() || "No additional message provided")
+    formData.append("field-4", jobTitle?.trim() || "No additional message provided")
 
     console.log("Submitting to n8n webhook...")
 

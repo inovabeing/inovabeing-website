@@ -48,6 +48,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
     email: "",
     phone: "",
     message: "",
+    jobTitle: "",
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -104,6 +105,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
         email: formData.email,
         phone: formData.phone,
         message: formData.message || "No message",
+        jobTitle: job?.title
       })
 
       const response = await fetch("/api/careers/submit", {
@@ -116,6 +118,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
           email: formData.email,
           phone: formData.phone,
           message: formData.message || "",
+          jobTitle: job?.title || "",
         }),
       })
 
@@ -132,6 +135,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
           email: "",
           phone: "",
           message: "",
+          jobTitle: "",
         })
       } else {
         // Handle specific error types
@@ -160,7 +164,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
   }
 
   const generateEmailBody = () => {
-    return `Subject: Intern Application - ${job?.title || "AI Project"}
+    return `Subject: Job Application - ${job?.title || "AI Project"}
 
 Dear Hiring Team,
 
