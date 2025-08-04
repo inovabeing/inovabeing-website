@@ -33,6 +33,8 @@ interface FormData {
   fullName: string
   email: string
   phone: string
+  linkedinUrl: string
+  projectUrl: string
   message: string
 }
 
@@ -40,6 +42,9 @@ interface FormErrors {
   fullName?: string
   email?: string
   phone?: string
+  linkedinUrl?: string
+  message?: string
+  projectUrl?: string
 }
 
 export function InternApplicationForm({ job, onBack }: InternApplicationFormProps) {
@@ -47,13 +52,112 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
     fullName: "",
     email: "",
     phone: "",
+    linkedinUrl: "",
+    projectUrl: "",
     message: "",
-    jobTitle: "",
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error" | "webhook_not_active">("idle")
   const [errorMessage, setErrorMessage] = useState<string>("")
+
+  const validateLinkedInUrl = (url: string): { isValid: boolean; errorMessage?: string } => {
+    if (!url.trim()) {
+      return { isValid: false, errorMessage: "LinkedIn profile URL is required" }
+    }
+
+    const trimmedUrl = url.trim()
+
+    // Check if it starts with http:// or https://
+    if (!trimmedUrl.startsWith("http://") && !trimmedUrl.startsWith("https://")) {
+      return { isValid: false, errorMessage: "URL must start with http:// or https://" }
+    }
+
+    // More comprehensive LinkedIn URL validation
+    const linkedinRegex =
+      /^https?:\/\/(www\.)?linkedin\.com\/(in|pub|profile\/view\?id=)[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+\/?$/
+
+    if (!linkedinRegex.test(trimmedUrl)) {
+      return {
+        isValid: false,
+        errorMessage: "Please enter a valid LinkedIn profile URL (e.g., https://linkedin.com/in/yourname)",
+      }
+    }
+
+    // Check for common LinkedIn URL patterns
+    const validPatterns = [
+      /linkedin\.com\/in\/[a-zA-Z0-9-]+/,
+      /linkedin\.com\/pub\/[a-zA-Z0-9-]+/,
+      /linkedin\.com\/profile\/view\?id=/,
+    ]
+
+    const hasValidPattern = validPatterns.some((pattern) => pattern.test(trimmedUrl))
+
+    if (!hasValidPattern) {
+      return { isValid: false, errorMessage: "Please enter a valid LinkedIn profile URL" }
+    }
+
+    return { isValid: true }
+  }
+
+  const validateProjectUrl = (url: string): { isValid: boolean; errorMessage?: string } => {
+    if (!url.trim()) {
+      return { isValid: true } // Optional field
+    }
+
+    const trimmedUrl = url.trim()
+
+    // Check if it starts with http:// or https://
+    if (!trimmedUrl.startsWith("http://") && !trimmedUrl.startsWith("https://")) {
+      return { isValid: false, errorMessage: "URL must start with http:// or https://" }
+    }
+
+    try {
+      const urlObj = new URL(trimmedUrl)
+
+      // Check for valid hostname
+      if (!urlObj.hostname || urlObj.hostname.length < 3) {
+        return { isValid: false, errorMessage: "Please enter a valid URL with a proper domain" }
+      }
+
+      // Check for at least one dot in hostname (basic domain validation)
+      if (!urlObj.hostname.includes(".")) {
+        return { isValid: false, errorMessage: "Please enter a valid URL with a proper domain" }
+      }
+
+      // Optional: Check for common project hosting domains
+      const commonDomains = [
+        "github.com",
+        "gitlab.com",
+        "bitbucket.org",
+        "vercel.app",
+        "netlify.app",
+        "herokuapp.com",
+        "github.io",
+        "gitlab.io",
+        "pages.dev",
+        "repl.it",
+        "codesandbox.io",
+        "stackblitz.com",
+      ]
+
+      const isCommonDomain = commonDomains.some(
+        (domain) => urlObj.hostname === domain || urlObj.hostname.endsWith("." + domain),
+      )
+
+      // If it's not a common domain, just ensure it's a valid URL structure
+      if (!isCommonDomain) {
+        // Additional validation for general URLs
+        if (urlObj.hostname.split(".").length < 2) {
+          return { isValid: false, errorMessage: "Please enter a valid URL" }
+        }
+      }
+
+      return { isValid: true }
+    } catch (error) {
+      return { isValid: false, errorMessage: "Please enter a valid URL (e.g., https://github.com/yourproject)" }
+    }
+  }
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
@@ -84,6 +188,25 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
       }
     }
 
+    // Validate LinkedIn URL (mandatory)
+    const linkedinValidation = validateLinkedInUrl(formData.linkedinUrl)
+    if (!linkedinValidation.isValid) {
+      newErrors.linkedinUrl = linkedinValidation.errorMessage
+    }
+
+    // Validate project URL (optional but must be valid if provided)
+    const projectUrlValidation = validateProjectUrl(formData.projectUrl)
+    if (!projectUrlValidation.isValid) {
+      newErrors.projectUrl = projectUrlValidation.errorMessage
+    }
+
+    // Validate message (now mandatory)
+    if (!formData.message.trim()) {
+      newErrors.message = "Please tell us why you're interested in this position"
+    } else if (formData.message.trim().length < 20) {
+      newErrors.message = "Please provide at least 20 characters explaining your interest"
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -104,8 +227,10 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
         fullName: formData.fullName,
         email: formData.email,
         phone: formData.phone,
-        message: formData.message || "No message",
-        jobTitle: job?.title
+        linkedinUrl: formData.linkedinUrl,
+        projectUrl: formData.projectUrl || "Not provided",
+        message: formData.message,
+        jobTitle: job?.title,
       })
 
       const response = await fetch("/api/careers/submit", {
@@ -117,7 +242,9 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
           fullName: formData.fullName,
           email: formData.email,
           phone: formData.phone,
-          message: formData.message || "",
+          linkedinUrl: formData.linkedinUrl,
+          projectUrl: formData.projectUrl || "",
+          message: formData.message,
           jobTitle: job?.title || "",
         }),
       })
@@ -134,8 +261,9 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
           fullName: "",
           email: "",
           phone: "",
+          linkedinUrl: "",
+          projectUrl: "",
           message: "",
-          jobTitle: "",
         })
       } else {
         // Handle specific error types
@@ -173,8 +301,11 @@ I am writing to apply for the ${job?.title || "AI Project Intern"} position at I
 Full Name: ${formData.fullName}
 Email: ${formData.email}
 Phone: ${formData.phone}
+LinkedIn Profile: ${formData.linkedinUrl}
+${formData.projectUrl ? `Project URL: ${formData.projectUrl}` : ""}
 
-${formData.message ? `Message: ${formData.message}` : ""}
+Why I'm interested:
+${formData.message}
 
 Thank you for considering my application.
 
@@ -189,12 +320,12 @@ ${formData.fullName}`
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Application Submitted!</h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Thank you for your interest in joining our AI team at Inovabeing!
-            We've received your application and will be reviewing it shortly. You'll receive the assignment from 
-            tech@inovabeing.com in the next few hours. If you don't see it, feel free to reach out to us directly.
+            Thank you for your interest in joining our AI team at Inovabeing! We've received your application and will
+            be reviewing it shortly. You'll receive the assignment from tech@inovabeing.com in the next few hours. If
+            you don't see it, feel free to reach out to us directly.
           </p>
           <div className="space-y-3">
-            <Button onClick={onBack} variant="outline" className="mr-4">
+            <Button onClick={onBack} variant="outline" className="mr-4 bg-transparent">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Careers
             </Button>
@@ -328,25 +459,79 @@ ${formData.fullName}`
                   value={formData.phone}
                   onChange={(e) => {
                     // Allow only digits and common phone formatting characters while typing
-                    const value = e.target.value.replace(/[^\d\s\-$$$$]/g, "")
+                    const value = e.target.value.replace(/[^\d\s\-()]/g, "")
                     handleInputChange("phone", value)
                   }}
-                  placeholder="Enter your phone number"
+                  placeholder="Enter your 10-digit phone number"
                   className={errors.phone ? "border-red-500" : ""}
                 />
+                <p className="text-xs text-gray-500">Enter 10-digit mobile number (e.g., 9876543210)</p>
                 {errors.phone && <p className="text-sm text-red-500">{errors.phone}</p>}
               </div>
 
-              {/* Message */}
+              {/* LinkedIn Profile URL */}
               <div className="space-y-2">
-                <Label htmlFor="message">Why are you interested in this position? (Optional)</Label>
+                <Label htmlFor="linkedinUrl">
+                  LinkedIn Profile URL <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="linkedinUrl"
+                  type="url"
+                  value={formData.linkedinUrl}
+                  onChange={(e) => {
+                    const value = e.target.value
+                    handleInputChange("linkedinUrl", value)
+
+                    // Real-time validation feedback
+                    if (value.trim() && !value.startsWith("http://") && !value.startsWith("https://")) {
+                      setErrors((prev) => ({ ...prev, linkedinUrl: "URL must start with http:// or https://" }))
+                    }
+                  }}
+                  placeholder="https://linkedin.com/in/yourname"
+                  className={errors.linkedinUrl ? "border-red-500" : ""}
+                />
+                <p className="text-xs text-gray-500">Please provide your LinkedIn profile URL</p>
+                {errors.linkedinUrl && <p className="text-sm text-red-500">{errors.linkedinUrl}</p>}
+              </div>
+
+              {/* Project URL */}
+              <div className="space-y-2">
+                <Label htmlFor="projectUrl">Project URL (Optional)</Label>
+                <Input
+                  id="projectUrl"
+                  type="url"
+                  value={formData.projectUrl}
+                  onChange={(e) => {
+                    const value = e.target.value
+                    handleInputChange("projectUrl", value)
+
+                    // Real-time validation feedback for project URL
+                    if (value.trim() && !value.startsWith("http://") && !value.startsWith("https://")) {
+                      setErrors((prev) => ({ ...prev, projectUrl: "URL must start with http:// or https://" }))
+                    }
+                  }}
+                  placeholder="https://github.com/yourproject or portfolio link"
+                  className={errors.projectUrl ? "border-red-500" : ""}
+                />
+                <p className="text-xs text-gray-500">Share a link to your project, portfolio, or GitHub repository</p>
+                {errors.projectUrl && <p className="text-sm text-red-500">{errors.projectUrl}</p>}
+              </div>
+
+              {/* Message - Now Mandatory */}
+              <div className="space-y-2">
+                <Label htmlFor="message">
+                  Why are you interested in this position? <span className="text-red-500">*</span>
+                </Label>
                 <Textarea
                   id="message"
                   value={formData.message}
                   onChange={(e) => handleInputChange("message", e.target.value)}
-                  placeholder="Tell us why you're interested in this role and why you'd be a great fit..."
+                  placeholder="Tell us why you're interested in this role and why you'd be a great fit. Please provide at least 20 characters."
                   rows={4}
+                  className={errors.message ? "border-red-500" : ""}
                 />
+                <p className="text-xs text-gray-500">{formData.message.length}/20 characters minimum</p>
+                {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
               </div>
 
               {/* Submit Status */}

@@ -3,13 +3,27 @@ import { type NextRequest, NextResponse } from "next/server"
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { fullName, email, phone, message, jobTitle } = body
+    const { fullName, email, phone, linkedinUrl, projectUrl, message, jobTitle } = body
 
-    console.log("Received career application:", { fullName, email, phone, message: message ? "provided" : "empty", jobTitle })
+    console.log("Received career application:", {
+      fullName,
+      email,
+      phone,
+      linkedinUrl,
+      projectUrl: projectUrl || "Not provided",
+      message: message ? "provided" : "empty",
+      jobTitle,
+    })
 
     // Validate required fields
-    if (!fullName || !email || !phone) {
-      console.error("Missing required fields:", { fullName: !!fullName, email: !!email, phone: !!phone })
+    if (!fullName || !email || !phone || !linkedinUrl || !message) {
+      console.error("Missing required fields:", {
+        fullName: !!fullName,
+        email: !!email,
+        phone: !!phone,
+        linkedinUrl: !!linkedinUrl,
+        message: !!message,
+      })
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
@@ -18,10 +32,19 @@ export async function POST(request: NextRequest) {
     formData.append("field-0", fullName.trim())
     formData.append("field-1", email.trim())
     formData.append("field-2", phone.trim())
-    formData.append("field-3", message?.trim() || "No additional message provided")
-    formData.append("field-4", jobTitle?.trim() || "No additional message provided")
+    formData.append("field-3", message.trim())
+    formData.append("field-5", jobTitle?.trim() || "Position not specified")
+    formData.append("field-6", linkedinUrl.trim())
+    formData.append("field-7", projectUrl?.trim() || "Not provided")
 
-    console.log("Submitting to n8n webhook...")
+    console.log("Submitting to n8n webhook with fields:")
+    console.log("field-0 (Name):", fullName.trim())
+    console.log("field-1 (Email):", email.trim())
+    console.log("field-2 (Phone):", phone.trim())
+    console.log("field-3 (Message):", message.trim().substring(0, 50) + "...")
+    console.log("field-5 (Job Title):", jobTitle?.trim() || "Position not specified")
+    console.log("field-6 (LinkedIn):", linkedinUrl.trim())
+    console.log("field-7 (Project URL):", projectUrl?.trim() || "Not provided")
 
     // Submit to n8n webhook with timeout and better error handling
     const controller = new AbortController()
@@ -82,6 +105,8 @@ export async function POST(request: NextRequest) {
       console.log("Career application submitted successfully to n8n:", {
         name: fullName,
         email: email,
+        linkedin: linkedinUrl,
+        hasProject: !!projectUrl,
         timestamp: new Date().toISOString(),
         n8nStatus: n8nResponse.status,
       })
