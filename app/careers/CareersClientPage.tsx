@@ -19,6 +19,7 @@ interface JobOpening {
   requirements: string[]
   benefits: string[]
   isActive: boolean
+  preferredSkills?: string[]
 }
 
 const jobOpenings: JobOpening[] = [
@@ -53,6 +54,41 @@ const jobOpenings: JobOpening[] = [
     ],
     isActive: false,
   },
+  {
+    id: "campaign-manager",
+    title: "Campaign Manager / Performance Marketer",
+    department: "Marketing",
+    location: "Hybrid (Hyderabad preferred)",
+    type: "Full-Time",
+    experience: "3–4 years",
+    description:
+      "We’re hiring a Campaign Manager / Performance Marketer to plan, execute, and optimize ROI-driven campaigns across Google, Meta, LinkedIn, and other platforms. You’ll manage campaigns for INovaBeing’s brand, products, and clients, delivering measurable results and driving long-term growth.",
+    thingsYoullDo: [
+      "Plan and execute ROI-driven ad campaigns across Google, Meta, and LinkedIn",
+      "Develop full-funnel strategies covering awareness, engagement, and conversion",
+      "Manage budgets effectively, ensuring CAC control and ROI of 5× or higher",
+      "Track and optimize key metrics including ROAS, CPL, CTR, and conversions",
+      "Collaborate with internal teams and freelancers to deliver creative ad assets",
+      "Prepare regular reports with insights, recommendations, and ROI analysis"
+    ],
+    requirements: [
+      "3–4 years of proven experience in performance marketing or campaign management",
+      "Strong track record of managing high-budget campaigns with measurable ROI",
+      "Hands-on expertise with Google Ads, Meta Ads Manager, and LinkedIn Campaign Manager",
+      "Deep understanding of CAC, ROAS, CPL, CTR, and conversion rate optimization",
+      "Ability to manage multiple campaigns and client accounts in parallel",
+      "Analytical mindset with strong reporting, problem-solving, and communication skills"
+    ],
+    benefits: [
+      "Monthly Salary: ₹40,000 (base)",
+      "Monthly Incentive: Up to ₹5,000 post-probation (based on ROI and reporting KPIs)",
+      "Annual Bonus: 5–10% of CTC, linked to profitability, ROI, and client retention",
+      "Opportunity to work on international campaigns and product launches",
+      "Clear growth path to Marketing Lead role as INovaBeing expands"
+    ],
+    isActive: true
+  },
+  
    {
     id: "ai-intern-2025",
     title: "Product Engineer – AI Web Stack (Internship) @ Inovabeing",
@@ -88,43 +124,53 @@ const jobOpenings: JobOpening[] = [
     isActive: false,
   },
   {
-    id: "social-media-associate",
-    title: "Social Media & Campaign Associate",
-    location: "Hybrid (Hyderabad preferred)",
+    id: "midlevel-fullstack-engineer",
+    title: "Mid-Level Full Stack Engineer",
+    department: "Engineering",
+    location: "Hybrid (Hyderabad)",
     type: "Full-Time",
-    experience: "1-2 years",
-    description:
-      "We're hiring a full-time Social Media & Campaign Associate who's responsible for handling clients' brand presence across LinkedIn, Instagram, YouTube, and other digital platforms. You'll manage daily content execution, growth campaigns, and community engagement, supporting both awareness and lead-generation goals.",
+    experience: "3–5 years",
+    description: "We’re hiring a Mid-Level Full Stack Engineer to own end-to-end product development, from backend APIs to frontend UI, while managing infrastructure on GCP using Terraform. You’ll contribute to AI-driven products and enterprise-grade SaaS solutions, ensuring scalable, secure, and reliable deployments.",
     thingsYoullDo: [
-      "Plan and post content (carousels, reels, short-form videos, hooks) across key platforms",
-      "Collaborate with the founder for thought-leadership content and launch campaigns",
-      "Track and optimise campaign performance (organic and paid)",
-      "Create growth-focused content calendars",
-      "Support inbound lead-gen efforts via content and performance creatives",
-      "Engage with online communities and drive visibility in the AI/startup space",
+      "Build scalable and secure backend APIs using Node.js/Express or Python/FastAPI.",
+      "Develop clean, responsive React/Next.js frontend applications.",
+      "Integrate internal products and client systems efficiently.",
+      "Manage cloud infrastructure on GCP (Cloud Run, Cloud SQL, Secret Manager, IAM).",
+      "Write and maintain Terraform configurations for infrastructure provisioning.",
+      "Follow TDD and implement automated unit tests, collaborating in 2-week sprints."
     ],
     requirements: [
-      "1–2 years of experience in digital marketing or social media (agency/startup preferred)",
-      "Firm grasp of content formats: Reels, carousels, short video, copywriting",
-      "Understanding of platforms: LinkedIn, Instagram, Meta Ads (basic knowledge is a plus)",
-      "Familiarity with tools like Canva, CapCut, Notion, Buffer/Hootsuite, ChatGPT",
-      "Comfortable working in a fast-paced, outcome-driven environment",
-      "Bonus: Interest in AI, automation, or startups",
+      "3–5 years experience as Full Stack Engineer.",
+      "Strong backend with Node.js/Express or Python/FastAPI/Flask.",
+      "Proficiency in React/Next.js for frontend.",
+      "Hands-on PostgreSQL (schema, queries, performance).",
+      "Experience deploying on GCP (Cloud Run, Cloud SQL, IAM, Secret Manager).",
+      "Knowledge of Terraform, CI/CD, TDD, unit testing, problem-solving, and communication."
+    ],
+    preferredSkills: [
+      "Docker & containerization.",
+      "Exposure to microservices architecture.",
+      "Familiarity with monitoring/logging tools (Stackdriver, Prometheus, ELK).",
+      "Experience in AI-driven products or high-scale SaaS systems.",
+      "Working knowledge of cloud security and IAM best practices.",
+      "Experience with automated deployment pipelines."
     ],
     benefits: [
-      "Monthly Salary: ₹25,000 (1-2 years of experience)",
-      "Work Mode: Hybrid (2–3 days/week onsite)",
-      "Performance Bonus: post-probation based on campaign KPIs",
-      "Learning support (access to paid AI/growth courses if relevant)",
-      "Flexible hours and creative freedom",
+      "Monthly Salary: ₹60,000 (base).",
+      "Annual Performance Bonus based on company profitability and contributions.",
+      "Steep growth path to Senior Engineer / Tech Lead.",
+      "Opportunity to work on AI products and international SaaS deployments.",
+      "Hands-on experience with latest cloud technologies.",
+      "Chance to own end-to-end product lifecycle."
     ],
-    isActive: true,
+    isActive: true
   },
 ]
 
 export function CareersClientPage() {
   const [selectedJob, setSelectedJob] = useState<string | null>(null)
   const [showApplicationForm, setShowApplicationForm] = useState(false)
+  const [expandedId, setExpandedId] = useState<string | null>(null)
 
   const handleApplyClick = (jobId: string) => {
     setSelectedJob(jobId)
@@ -176,87 +222,162 @@ export function CareersClientPage() {
         </div>
 
         {/* Job Openings */}
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Current Openings</h2>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-xl md:text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">Current Openings</h2>
 
-          <div className="space-y-6">
-            {jobOpenings
-              .filter((job) => job.isActive)
-              .map((job) => (
-                <Card key={job.id} className="hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                      <div>
-                        <CardTitle className="text-2xl text-gray-900 dark:text-white">{job.title}</CardTitle>
-                        <CardDescription className="text-lg">{job.department}</CardDescription>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {(() => {
+              const jobs = jobOpenings.filter((job) => job.isActive).slice(0, 2);
+              // If a card is expanded, only show that card (full width on desktop)
+              if (expandedId) {
+                const job = jobs.find(j => j.id === expandedId);
+                if (!job) return null;
+                return (
+                  <div className="col-span-1 md:col-span-2">
+                    <Card key={job.id} className="hover:shadow-lg transition-shadow duration-300 flex flex-col h-full max-w-3xl mx-auto">
+                      <CardHeader>
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                          <div>
+                            <CardTitle className="text-lg md:text-xl text-gray-900 dark:text-white">{job.title}</CardTitle>
+                            <CardDescription className="text-sm md:text-base">{job.department}</CardDescription>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm">
+                              <MapPin className="h-3 w-3" />
+                              {job.location}
+                            </Badge>
+                            <Badge variant="outline" className="flex items-center gap-1 text-xs md:text-sm">
+                              <Clock className="h-3 w-3" />
+                              {job.type}
+                            </Badge>
+                            <Badge variant="outline" className="flex items-center gap-1 text-xs md:text-sm">
+                              <Briefcase className="h-3 w-3" />
+                              {job.experience}
+                            </Badge>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4 flex-1 flex flex-col">
+                        <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">{job.description}</p>
+
+                        {job.thingsYoullDo && (
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2 text-base md:text-lg">What You'll Do:</h4>
+                            <ul className="space-y-1 md:space-y-2">
+                              {job.thingsYoullDo.map((req, index) => (
+                                <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300 text-sm md:text-base">
+                                  <span className="text-blue-500 mt-1">•</span>
+                                  <span>{req}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {job.requirements && (
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2 text-base md:text-lg">Requirements:</h4>
+                            <ul className="space-y-1 md:space-y-2">
+                              {job.requirements.map((req, index) => (
+                                <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300 text-sm md:text-base">
+                                  <span className="text-blue-500 mt-1">•</span>
+                                  <span>{req}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {job.preferredSkills && (
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2 text-base md:text-lg">Preferred Skills:</h4>
+                            <ul className="space-y-1 md:space-y-2">
+                              {job.preferredSkills.map((skill, index) => (
+                                <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300 text-sm md:text-base">
+                                  <span className="text-blue-500 mt-1">•</span>
+                                  <span>{skill}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {job.benefits && (
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white mb-2 text-base md:text-lg">What We Offer:</h4>
+                            <ul className="space-y-1 md:space-y-2">
+                              {job.benefits.map((benefit, index) => (
+                                <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300 text-sm md:text-base">
+                                  <span className="text-green-500 mt-1">✓</span>
+                                  <span>{benefit}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        <div className="flex gap-2 pt-4 mt-auto">
+                          <Button
+                            onClick={() => setExpandedId(null)}
+                            className="bg-gray-200 text-gray-900 dark:bg-gray-700 dark:text-white px-6 py-2 text-sm md:text-base"
+                          >
+                            Less
+                          </Button>
+                          <Button
+                            onClick={() => handleApplyClick(job.id)}
+                            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2 text-sm md:text-base"
+                          >
+                            Apply Now
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                );
+              }
+              // If no card is expanded, show both side by side
+              return jobs.map((job) => {
+                return (
+                  <Card key={job.id} className="hover:shadow-lg transition-shadow duration-300 flex flex-col h-full max-w-xl mx-auto md:max-w-2xl">
+                    <CardHeader>
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <div>
+                          <CardTitle className="text-lg md:text-xl text-gray-900 dark:text-white">{job.title}</CardTitle>
+                          <CardDescription className="text-sm md:text-base">{job.department}</CardDescription>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm">
+                            <MapPin className="h-3 w-3" />
+                            {job.location}
+                          </Badge>
+                          <Badge variant="outline" className="flex items-center gap-1 text-xs md:text-sm">
+                            <Clock className="h-3 w-3" />
+                            {job.type}
+                          </Badge>
+                          <Badge variant="outline" className="flex items-center gap-1 text-xs md:text-sm">
+                            <Briefcase className="h-3 w-3" />
+                            {job.experience}
+                          </Badge>
+                        </div>
                       </div>
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="secondary" className="flex items-center gap-1">
-                          <MapPin className="h-3 w-3" />
-                          {job.location}
-                        </Badge>
-                        <Badge variant="outline" className="flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
-                          {job.type}
-                        </Badge>
-                        <Badge variant="outline" className="flex items-center gap-1">
-                          <Briefcase className="h-3 w-3" />
-                          {job.experience}
-                        </Badge>
+                    </CardHeader>
+                    <CardContent className="space-y-4 flex-1 flex flex-col">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">
+                        {job.description}
+                      </p>
+                      <div className="pt-2">
+                        <Button
+                          onClick={() => setExpandedId(job.id)}
+                          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2 text-sm md:text-base"
+                        >
+                          More
+                        </Button>
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <p className="text-gray-600 dark:text-gray-300">{job.description}</p>
-
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">What You'll Do:</h4>
-                      <ul className="space-y-2">
-                        {job.thingsYoullDo.map((req, index) => (
-                          <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-                            <span className="text-blue-500 mt-1">•</span>
-                            <span>{req}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Requirements:</h4>
-                      <ul className="space-y-2">
-                        {job.requirements.map((req, index) => (
-                          <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-                            <span className="text-blue-500 mt-1">•</span>
-                            <span>{req}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-3">What We Offer:</h4>
-                      <ul className="space-y-2">
-                        {job.benefits.map((benefit, index) => (
-                          <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-                            <span className="text-green-500 mt-1">✓</span>
-                            <span>{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="pt-4">
-                    Ready to build the future with us? <span className="text-green-500 mt-1"></span>
-                      <Button
-                        onClick={() => handleApplyClick(job.id)}
-                        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-2"
-                      >
-                        Apply Now
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+              });
+            })()}
           </div>
 
           {jobOpenings.filter((job) => job.isActive).length === 0 && (
