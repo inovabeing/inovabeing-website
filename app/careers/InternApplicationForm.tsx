@@ -1,6 +1,3 @@
-"use client"
-
-import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -48,6 +45,8 @@ interface FormErrors {
 }
 
 export function InternApplicationForm({ job, onBack }: InternApplicationFormProps) {
+
+
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -159,6 +158,22 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
     }
   }
 
+  const validateGithubUrl = (url: string): { isValid: boolean; errorMessage?: string } => {
+    if (!url.trim()) {
+      return { isValid: false, errorMessage: "GitHub profile URL is required" }
+    }
+    const trimmedUrl = url.trim()
+    if (!trimmedUrl.startsWith("http://") && !trimmedUrl.startsWith("https://")) {
+      return { isValid: false, errorMessage: "URL must start with http:// or https://" }
+    }
+    // Basic GitHub profile URL validation
+    const githubRegex = /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_-]+\/?$/
+    if (!githubRegex.test(trimmedUrl)) {
+      return { isValid: false, errorMessage: "Please enter a valid GitHub profile URL (e.g., https://github.com/yourusername)" }
+    }
+    return { isValid: true }
+  }
+
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
 
@@ -194,10 +209,29 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
       newErrors.linkedinUrl = linkedinValidation.errorMessage
     }
 
-    // Validate project URL (optional but must be valid if provided)
-    const projectUrlValidation = validateProjectUrl(formData.projectUrl)
-    if (!projectUrlValidation.isValid) {
-      newErrors.projectUrl = projectUrlValidation.errorMessage
+    // For Mid-Level Full Stack Engineer, projectUrl is required and must be a valid GitHub profile or project URL
+    if (job?.id === "midlevel-fullstack-engineer") {
+      if (!formData.projectUrl.trim()) {
+        newErrors.projectUrl = "GitHub/Project URL is required for this role"
+      } else {
+        // Accept both GitHub profile and project URLs
+        const trimmedUrl = formData.projectUrl.trim()
+        if (!trimmedUrl.startsWith("http://") && !trimmedUrl.startsWith("https://")) {
+          newErrors.projectUrl = "URL must start with http:// or https://"
+        } else {
+          // Accept github.com URLs (profile or repo)
+          const githubRegex = /^https?:\/\/(www\.)?github\.com\/[A-Za-z0-9_.-]+(\/[A-Za-z0-9_.-]+)?\/?$/
+          if (!githubRegex.test(trimmedUrl)) {
+            newErrors.projectUrl = "Please enter a valid GitHub profile or project URL (e.g., https://github.com/yourusername or https://github.com/yourusername/repo)"
+          }
+        }
+      }
+    } else {
+      // For other roles, projectUrl is optional but must be valid if provided
+      const projectUrlValidation = validateProjectUrl(formData.projectUrl)
+      if (!projectUrlValidation.isValid) {
+        newErrors.projectUrl = projectUrlValidation.errorMessage
+      }
     }
 
     // Validate message (now mandatory)
@@ -494,9 +528,17 @@ ${formData.fullName}`
                 {errors.linkedinUrl && <p className="text-sm text-red-500">{errors.linkedinUrl}</p>}
               </div>
 
-              {/* Project URL */}
+              {/* Project URL (label changes for midlevel-fullstack-engineer) */}
               <div className="space-y-2">
-                <Label htmlFor="projectUrl">Project URL (Optional)</Label>
+                <Label htmlFor="projectUrl">
+                  {job?.id === "midlevel-fullstack-engineer" ? (
+                    <>
+                      GitHub/Project URL <span className="text-red-500">*</span>
+                    </>
+                  ) : (
+                    <>Project URL (Optional)</>
+                  )}
+                </Label>
                 <Input
                   id="projectUrl"
                   type="url"
@@ -504,18 +546,23 @@ ${formData.fullName}`
                   onChange={(e) => {
                     const value = e.target.value
                     handleInputChange("projectUrl", value)
-
                     // Real-time validation feedback for project URL
                     if (value.trim() && !value.startsWith("http://") && !value.startsWith("https://")) {
                       setErrors((prev) => ({ ...prev, projectUrl: "URL must start with http:// or https://" }))
                     }
                   }}
-                  placeholder="https://github.com/yourproject or portfolio link"
+                  placeholder="https://github.com/yourusername or project link"
                   className={errors.projectUrl ? "border-red-500" : ""}
                 />
-                <p className="text-xs text-gray-500">Share a link to your project, portfolio, or GitHub repository</p>
+                {job?.id === "midlevel-fullstack-engineer" ? (
+                  <p className="text-xs text-gray-500">Please provide your GitHub profile or project link.</p>
+                ) : (
+                  <p className="text-xs text-gray-500">Share a link to your project, portfolio, or GitHub repository (optional)</p>
+                )}
                 {errors.projectUrl && <p className="text-sm text-red-500">{errors.projectUrl}</p>}
               </div>
+
+              {/* GitHub Profile URL - Only for Mid-Level Full Stack Engineer */}
 
               {/* Message - Now Mandatory */}
               <div className="space-y-2">

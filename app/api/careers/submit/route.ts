@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server"
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { fullName, email, phone, linkedinUrl, projectUrl, message, jobTitle } = body
+    const { fullName, email, phone, linkedinUrl, projectUrl, githubUrl, message, jobTitle } = body
 
     console.log("Received career application:", {
       fullName,
@@ -11,6 +11,7 @@ export async function POST(request: NextRequest) {
       phone,
       linkedinUrl,
       projectUrl: projectUrl || "Not provided",
+      githubUrl: githubUrl || "Not provided",
       message: message ? "provided" : "empty",
       jobTitle,
     })
@@ -36,6 +37,10 @@ export async function POST(request: NextRequest) {
     formData.append("field-5", jobTitle?.trim() || "Position not specified")
     formData.append("field-6", linkedinUrl.trim())
     formData.append("field-7", projectUrl?.trim() || "Not provided")
+    // Only for Mid-Level Full Stack Engineer, add githubUrl as field-8
+    if (jobTitle && jobTitle.toLowerCase().includes("full stack engineer") && githubUrl) {
+      formData.append("field-8", githubUrl.trim())
+    }
 
     console.log("Submitting to n8n webhook with fields:")
     console.log("field-0 (Name):", fullName.trim())
@@ -45,6 +50,9 @@ export async function POST(request: NextRequest) {
     console.log("field-5 (Job Title):", jobTitle?.trim() || "Position not specified")
     console.log("field-6 (LinkedIn):", linkedinUrl.trim())
     console.log("field-7 (Project URL):", projectUrl?.trim() || "Not provided")
+    if (jobTitle && jobTitle.toLowerCase().includes("full stack engineer") && githubUrl) {
+      console.log("field-8 (GitHub):", githubUrl.trim())
+    }
 
     // Submit to n8n webhook with timeout and better error handling
     const controller = new AbortController()
