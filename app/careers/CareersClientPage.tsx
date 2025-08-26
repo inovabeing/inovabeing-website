@@ -86,7 +86,7 @@ const jobOpenings: JobOpening[] = [
       "Opportunity to work on international campaigns and product launches",
       "Clear growth path to Marketing Lead role as INovaBeing expands"
     ],
-    isActive: true
+    isActive: false
   },
   
    {
