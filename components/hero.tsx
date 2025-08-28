@@ -63,7 +63,7 @@ export function Hero() {
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
               {[
                 { name: "Offineeds", url: "https://www.offineeds.com" },
-                { name: "Art & Artist", url: null },
+                { name: "BrandUpWise", url: "https://brandupwise.com" },
               ].map((company) => (
                 <div
                   key={company.name}

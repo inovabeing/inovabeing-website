@@ -13,7 +13,7 @@ interface CalBookingModalProps {
 export function CalBookingModal({
   isOpen,
   onClose,
-  calLink = "https://cal.com/sathyarajan-b-vc7dee/meet",
+  calLink = "https://cal.com/inovabeing/meet",
 }: CalBookingModalProps) {
   const [mounted, setMounted] = useState(false)
 

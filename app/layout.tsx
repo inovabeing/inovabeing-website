@@ -107,7 +107,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <BookingModalProvider calLink="https://cal.com/sathyarajan-b-vc7dee/meet">
+          <BookingModalProvider calLink="https://cal.com/inovabeing/meet">
             <div className="flex min-h-screen flex-col">
               <Navbar />
               <main className="flex-1">{children}</main>

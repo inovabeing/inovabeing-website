@@ -26,7 +26,7 @@ interface BookingModalProviderProps {
 
 export function BookingModalProvider({
   children,
-  calLink = "https://cal.com/sathyarajan-b-vc7dee/meet",
+  calLink = "https://cal.com/inovabeing/meet",
 }: BookingModalProviderProps) {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false)
 
