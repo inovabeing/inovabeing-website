@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
 import { ArrowLeft, Send, CheckCircle, AlertCircle, Mail, Phone } from "lucide-react"
 import { validateEmail } from "@/utils/phone-validation"
 
@@ -33,6 +34,7 @@ interface FormData {
   linkedinUrl: string
   projectUrl: string
   message: string
+  assignmentAgreement: boolean
 }
 
 interface FormErrors {
@@ -42,6 +44,7 @@ interface FormErrors {
   linkedinUrl?: string
   message?: string
   projectUrl?: string
+  assignmentAgreement?: string
 }
 
 export function InternApplicationForm({ job, onBack }: InternApplicationFormProps) {
@@ -54,6 +57,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
     linkedinUrl: "",
     projectUrl: "",
     message: "",
+    assignmentAgreement: false,
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -241,6 +245,11 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
       newErrors.message = "Please provide at least 20 characters explaining your interest"
     }
 
+    // Validate assignment agreement (mandatory)
+    if (!formData.assignmentAgreement) {
+      newErrors.assignmentAgreement = "You must agree to the assignment terms to proceed"
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -298,6 +307,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
           linkedinUrl: "",
           projectUrl: "",
           message: "",
+          assignmentAgreement: false,
         })
       } else {
         // Handle specific error types
@@ -317,7 +327,7 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
     }
   }
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
+  const handleInputChange = (field: keyof FormData, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
     // Clear error when user starts typing
     if (errors[field as keyof FormErrors]) {
@@ -581,6 +591,30 @@ ${formData.fullName}`
                 {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
               </div>
 
+              {/* Assignment Agreement Checkbox */}
+              <div className="space-y-2">
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="assignmentAgreement"
+                    checked={formData.assignmentAgreement}
+                    onCheckedChange={(checked) => handleInputChange("assignmentAgreement", checked as boolean)}
+                    className={errors.assignmentAgreement ? "border-red-500" : ""}
+                  />
+                  <div className="grid gap-1.5 leading-none">
+                    <Label
+                      htmlFor="assignmentAgreement"
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      Assignment <span className="text-red-500">*</span>
+                    </Label>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                      I understand that by submitting this request, I must complete the assignment (sent from tech@inovabeing.com) within 48 hours or be auto-rejected. Only then will I qualify for the technical and final rounds, and I acknowledge this is a startup role requiring independent ownership and execution.
+                    </p>
+                  </div>
+                </div>
+                {errors.assignmentAgreement && <p className="text-sm text-red-500">{errors.assignmentAgreement}</p>}
+              </div>
+
               {/* Submit Status */}
               {submitStatus === "error" && (
                 <div className="flex items-start gap-2 text-red-600 bg-red-50 dark:bg-red-900/20 p-3 rounded-md">
@@ -598,8 +632,8 @@ ${formData.fullName}`
               {/* Submit Button */}
               <Button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
+                disabled={isSubmitting || !formData.assignmentAgreement}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
