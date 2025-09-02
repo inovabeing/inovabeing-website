@@ -80,11 +80,9 @@ const jobOpenings: JobOpening[] = [
       "Analytical mindset with strong reporting, problem-solving, and communication skills"
     ],
     benefits: [
-      "Monthly Salary: ₹40,000 (base)",
-      "Monthly Incentive: Up to ₹5,000 post-probation (based on ROI and reporting KPIs)",
-      "Annual Bonus: 5–10% of CTC, linked to profitability, ROI, and client retention",
-      "Opportunity to work on international campaigns and product launches",
-      "Clear growth path to Marketing Lead role as INovaBeing expands"
+      "CTC: Market Standard",
+      "Performance Bonus: Annual bonus up to 10% based on campaign ROI and KPIs",
+      "Team Setup: You'll work closely with our Social Media Associate who handles posting, blogs, and case studies, while you lead strategy, campaigns, and performance."
     ],
     isActive: true
   },

@@ -139,17 +139,24 @@ export default function ContactForm() {
     setIsSubmitting(true)
 
     try {
-      // Simulate sending an email (in a real app, this would be a server action)
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      // Submit to our API route which will handle Google Sheets
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          countryCode: data.countryCode,
+          message: data.message,
+          preferredTime: data.preferredTime,
+        }),
+      });
 
-      // In a real implementation, you would send an email to info@inovabeing.com
-      console.log("Sending email to info@inovabeing.com with the following data:", {
-        name: data.name,
-        email: data.email,
-        phone: `${data.countryCode} ${data.phone}`,
-        message: data.message,
-        preferredTime: data.preferredTime,
-      })
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to submit form.");
+      }
 
       setIsSuccess(true)
       toast({
@@ -157,7 +164,6 @@ export default function ContactForm() {
         description: "We'll get back to you as soon as possible.",
       })
 
-      // Reset the form after successful submission
       form.reset()
       setCharCount(0)
       setPhoneError("")
