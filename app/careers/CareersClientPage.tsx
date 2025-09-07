@@ -84,7 +84,7 @@ const jobOpenings: JobOpening[] = [
       "Performance Bonus: Annual bonus up to 10% based on campaign ROI and KPIs",
       "Team Setup: You'll work closely with our Social Media Associate who handles posting, blogs, and case studies, while you lead strategy, campaigns, and performance."
     ],
-    isActive: false
+    isActive: true
   },
   
    {
@@ -220,7 +220,7 @@ export function CareersClientPage() {
     const job = jobOpenings.find((j) => j.id === selectedJob)
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-        <div className="container mx-auto px-4 py-12">
+  <div className={`container mx-auto px-4 py-12${showApplicationForm && selectedJob ? ' flex justify-center items-center min-h-screen' : ''}`}> 
           <InternApplicationForm job={job} onBack={handleBackToJobs} />
         </div>
       </div>
@@ -232,12 +232,11 @@ export function CareersClientPage() {
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent mb-6">
+          <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
             Join Our AI Innovation Team
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-            Shape the future of artificial intelligence with INovaBeing. We're looking for passionate individuals who
-            want to make a real impact in the AI industry.
+          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+            Shape the future of artificial intelligence with INovaBeing. We're looking for passionate individuals who want to make a real impact in the AI industry.
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
             <div className="flex items-center gap-2">
@@ -261,7 +260,7 @@ export function CareersClientPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {(() => {
-              const jobs = jobOpenings.filter((job) => job.isActive).slice(0, 2);
+              const jobs = jobOpenings.filter((job) => job.isActive);
               // If a card is expanded, only show that card (full width on desktop)
               if (expandedId) {
                 const job = jobs.find(j => j.id === expandedId);
@@ -272,8 +271,8 @@ export function CareersClientPage() {
                       <CardHeader>
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                           <div>
-                            <CardTitle className="text-lg md:text-xl text-gray-900 dark:text-white">{job.title}</CardTitle>
-                            <CardDescription className="text-sm md:text-base">{job.department}</CardDescription>
+                            <CardTitle className="text-base md:text-lg text-gray-900 dark:text-white">{job.title}</CardTitle>
+                            <CardDescription className="text-xs md:text-sm">{job.department}</CardDescription>
                           </div>
                           <div className="flex flex-wrap gap-2">
                             <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm">
@@ -369,15 +368,15 @@ export function CareersClientPage() {
                   </div>
                 );
               }
-              // If no card is expanded, show both side by side
+              // If no card is expanded, show all active jobs
               return jobs.map((job) => {
                 return (
-                  <Card key={job.id} className="hover:shadow-lg transition-shadow duration-300 flex flex-col h-full max-w-xl mx-auto md:max-w-2xl">
+                  <Card key={job.id} className="hover:shadow-lg transition-shadow duration-300 flex flex-col h-full w-full">
                     <CardHeader>
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                         <div>
-                          <CardTitle className="text-lg md:text-xl text-gray-900 dark:text-white">{job.title}</CardTitle>
-                          <CardDescription className="text-sm md:text-base">{job.department}</CardDescription>
+                          <CardTitle className="text-base md:text-lg text-gray-900 dark:text-white">{job.title}</CardTitle>
+                          <CardDescription className="text-xs md:text-sm">{job.department}</CardDescription>
                         </div>
                         <div className="flex flex-wrap gap-2">
                           <Badge variant="secondary" className="flex items-center gap-1 text-xs md:text-sm">
