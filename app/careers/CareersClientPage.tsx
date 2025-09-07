@@ -84,7 +84,7 @@ const jobOpenings: JobOpening[] = [
       "Performance Bonus: Annual bonus up to 10% based on campaign ROI and KPIs",
       "Team Setup: You'll work closely with our Social Media Associate who handles posting, blogs, and case studies, while you lead strategy, campaigns, and performance."
     ],
-    isActive: true
+    isActive: false
   },
   
    {
@@ -120,6 +120,42 @@ const jobOpenings: JobOpening[] = [
       "Monthly stipend: ₹10,000–₹15,000 (based on experience/performance)",
     ],
     isActive: false,
+  },
+  {
+    id: "uiux-intern-2025",
+    title: "UI/UX Intern",
+    department: "System Process Automation | Internship | Hyderabad",
+    location: "Hybrid",
+    type: "Internship",
+    experience: "Entry Level",
+  description: "Are you ready to showcase your design skills in flows, transitions, and visual cues? Join Inovabeing as a UI/UX Intern and demonstrate how you create startup-ready, user-friendly designs. Work on real projects, collaborate with a passionate team, and make a visible impact on our products.",
+    thingsYoullDo: [
+      "Design complete end-to-end flows for mobile or web use cases.",
+      "Create smooth transitions and micro-interactions in Figma (preferred) or Adobe XD.",
+      "Show strong visual hierarchy through colors, spacing, and typography.",
+      "Translate requirements into a clean, consistent prototype that feels production-ready."
+    ],
+    requirements: [
+      "Basic to strong skills in UI/UX design tools (Figma preferred, Adobe XD or similar accepted).",
+      "Ability to demonstrate flows, transitions, and micro-interactions.",
+      "Strong sense of visual hierarchy (typography, spacing, colors, button states).",
+      "Ability to communicate design decisions in writing.",
+      "Commitment to completing and submitting a prototype challenge within 48 hours."
+    ],
+    benefits: [
+      "Transitions & Motion → Smooth navigation between screens.",
+      "Design Cues & Visual Hierarchy → Clear user guidance through design choices.",
+      "End-to-End Flow → A complete mini-journey, not just disconnected screens.",
+      "Consistency & Clarity → Simple, clean, startup-ready designs."
+    ],
+    preferredSkills: [
+      "Tools: Figma (preferred), Adobe XD, or similar design tools.",
+      "Deliverables:",
+      "1. A Figma prototype link (with transitions enabled).",
+      "2. A short note (150–200 words) explaining your design choices for transitions and cues.",
+      "Deadline: 48 hours from receiving this brief."
+    ],
+    isActive: true
   },
   {
     id: "midlevel-fullstack-engineer",
