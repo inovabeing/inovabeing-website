@@ -227,7 +227,7 @@ export default function PrivacyPolicyPage() {
               <strong>Address:</strong> INovaBeing Technologies Pvt LTD, Door No. 1-60, A & B, 3rd Floor, KNR Square,
               opp. The Platina, Gachibowli, Hyderabad, Telangana 500032, India
               <br />
-              <strong>Phone:</strong> +91 0000-000-000
+              <strong>Phone:</strong> +91 73969 85858
             </p>
           </section>
         </div>

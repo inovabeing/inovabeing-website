@@ -109,10 +109,10 @@ export default function ContactPage() {
                 Speak directly with our AI consultants to discuss your project needs.
               </p>
               <a
-                href="tel:+910000000000"
+                href="tel:+917396985858"
                 className="mt-auto inline-flex items-center text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"
               >
-                +91 0000-000-000
+                +91 73969 85858
               </a>
             </div>
 
@@ -141,7 +141,7 @@ export default function ContactPage() {
                 Connect with our team instantly through WhatsApp for quick responses.
               </p>
               <a
-                href="https://wa.me/910000000000"
+                href="https://wa.me/917396985858"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-auto inline-flex items-center text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300"

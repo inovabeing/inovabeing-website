@@ -251,7 +251,7 @@ export default function TermsOfServicePage() {
               <br />
               <strong>Address:</strong> INovaBeing Pvt Ltd, 123 AI Innovation Street, Tech Hub, India
               <br />
-              <strong>Phone:</strong> +91 (555) 123-4567
+              <strong>Phone:</strong> +91 73969 85858
             </p>
           </section>
         </div>
