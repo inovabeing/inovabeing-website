@@ -61,7 +61,14 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error" | "webhook_not_active">("idle")
+  type SubmitStatus = "idle" | "success" | "error" | "webhook_not_active";
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+
+  // Workaround for TS narrowing bug: store in local variable
+  const currentSubmitStatus: SubmitStatus = submitStatus;
+
+  // Ensure all setSubmitStatus calls use the correct type
+  // (No code change needed here if all usages are correct, but this comment is to clarify intent for future maintainers)
   const [errorMessage, setErrorMessage] = useState<string>("")
 
   const validateLinkedInUrl = (url: string): { isValid: boolean; errorMessage?: string } => {
@@ -213,12 +220,11 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
       newErrors.linkedinUrl = linkedinValidation.errorMessage
     }
 
-    // For Mid-Level Full Stack Engineer, projectUrl is required and must be a valid GitHub profile or project URL
-    if (job?.id === "midlevel-fullstack-engineer") {
+    // For Software Engineer Full-Stack, GitHub/Project URL is mandatory and must be a valid GitHub profile or project URL
+    if (job?.id === "software-engineer-fullstack-2025") {
       if (!formData.projectUrl.trim()) {
         newErrors.projectUrl = "GitHub/Project URL is required for this role"
       } else {
-        // Accept both GitHub profile and project URLs
         const trimmedUrl = formData.projectUrl.trim()
         if (!trimmedUrl.startsWith("http://") && !trimmedUrl.startsWith("https://")) {
           newErrors.projectUrl = "URL must start with http:// or https://"
@@ -228,6 +234,16 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
           if (!githubRegex.test(trimmedUrl)) {
             newErrors.projectUrl = "Please enter a valid GitHub profile or project URL (e.g., https://github.com/yourusername or https://github.com/yourusername/repo)"
           }
+        }
+      }
+    } else if (job?.id === "freelance-content-video-creator-2025") {
+      // For Content/Video Creator, portfolio/project URL is mandatory
+      if (!formData.projectUrl.trim()) {
+        newErrors.projectUrl = "Portfolio/Project URL is required for this role"
+      } else {
+        const trimmedUrl = formData.projectUrl.trim()
+        if (!trimmedUrl.startsWith("http://") && !trimmedUrl.startsWith("https://")) {
+          newErrors.projectUrl = "URL must start with http:// or https://"
         }
       }
     } else {
@@ -246,8 +262,10 @@ export function InternApplicationForm({ job, onBack }: InternApplicationFormProp
     }
 
     // Validate assignment agreement (mandatory)
-    if (!formData.assignmentAgreement) {
-      newErrors.assignmentAgreement = "You must agree to the assignment terms to proceed"
+    if (job?.id !== "freelance-content-video-creator-2025") {
+      if (!formData.assignmentAgreement) {
+        newErrors.assignmentAgreement = "You must agree to the assignment terms to proceed"
+      }
     }
 
     setErrors(newErrors)
@@ -363,11 +381,17 @@ ${formData.fullName}`
         <CardContent className="text-center py-12">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Application Submitted!</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Thank you for your interest in joining our AI team at Inovabeing! We've received your application and will
-            be reviewing it shortly. You'll receive the assignment from tech@inovabeing.com in the next few hours. If
-            you don't see it, feel free to reach out to us directly.
-          </p>
+          {job?.id === "freelance-content-video-creator-2025" ? (
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              Thank you for your interest in the Freelance Content & Video Creator (LinkedIn + Reels) role! We've received your application and portfolio. Our team will review your work and get back to you soon.
+            </p>
+          ) : (
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              Thank you for your interest in joining our AI team at Inovabeing! We've received your application and will
+              be reviewing it shortly. You'll receive the assignment from tech@inovabeing.com in the next few hours. If
+              you don't see it, feel free to reach out to us directly.
+            </p>
+          )}
           <div className="space-y-3">
             <Button onClick={onBack} variant="outline" className="mr-4 bg-transparent">
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -538,12 +562,16 @@ ${formData.fullName}`
                 {errors.linkedinUrl && <p className="text-sm text-red-500">{errors.linkedinUrl}</p>}
               </div>
 
-              {/* Project URL (label changes for midlevel-fullstack-engineer) */}
+              {/* Project URL (label changes for software-engineer-fullstack-2025 and freelance-content-video-creator-2025) */}
               <div className="space-y-2">
                 <Label htmlFor="projectUrl">
-                  {job?.id === "midlevel-fullstack-engineer" ? (
+                  {job?.id === "software-engineer-fullstack-2025" ? (
                     <>
                       GitHub/Project URL <span className="text-red-500">*</span>
+                    </>
+                  ) : job?.id === "freelance-content-video-creator-2025" ? (
+                    <>
+                      Portfolio/Project URL <span className="text-red-500">*</span>
                     </>
                   ) : (
                     <>Project URL (Optional)</>
@@ -561,18 +589,20 @@ ${formData.fullName}`
                       setErrors((prev) => ({ ...prev, projectUrl: "URL must start with http:// or https://" }))
                     }
                   }}
-                  placeholder="https://github.com/yourusername or project link"
+                  placeholder={job?.id === "freelance-content-video-creator-2025" ? "https://yourportfolio.com or project link" : "https://github.com/yourusername or project link"}
                   className={errors.projectUrl ? "border-red-500" : ""}
                 />
-                {job?.id === "midlevel-fullstack-engineer" ? (
+                {job?.id === "software-engineer-fullstack-2025" ? (
                   <p className="text-xs text-gray-500">Please provide your GitHub profile or project link.</p>
+                ) : job?.id === "freelance-content-video-creator-2025" ? (
+                  <p className="text-xs text-gray-500">Please provide a link to your portfolio, past work, or project.</p>
                 ) : (
                   <p className="text-xs text-gray-500">Share a link to your project, portfolio, or GitHub repository (optional)</p>
                 )}
                 {errors.projectUrl && <p className="text-sm text-red-500">{errors.projectUrl}</p>}
               </div>
 
-              {/* GitHub Profile URL - Only for Mid-Level Full Stack Engineer */}
+              {/* ...existing code... */}
 
               {/* Message - Now Mandatory */}
               <div className="space-y-2">
@@ -591,29 +621,32 @@ ${formData.fullName}`
                 {errors.message && <p className="text-sm text-red-500">{errors.message}</p>}
               </div>
 
-              {/* Assignment Agreement Checkbox */}
-              <div className="space-y-2">
-                <div className="flex items-start space-x-2">
-                  <Checkbox
-                    id="assignmentAgreement"
-                    checked={formData.assignmentAgreement}
-                    onCheckedChange={(checked) => handleInputChange("assignmentAgreement", checked as boolean)}
-                    className={errors.assignmentAgreement ? "border-red-500" : ""}
-                  />
-                  <div className="grid gap-1.5 leading-none">
-                    <Label
-                      htmlFor="assignmentAgreement"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      Assignment <span className="text-red-500">*</span>
-                    </Label>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                      I understand that by submitting this request, I must complete the assignment (sent from tech@inovabeing.com) within 48 hours or be auto-rejected. Only then will I qualify for the technical and final rounds, and I acknowledge this is a startup role requiring independent ownership and execution.
-                    </p>
+              {/* Assignment Agreement Checkbox (not shown for Content/Video Creator) */}
+              {job?.id !== "freelance-content-video-creator-2025" && (
+                <div className="space-y-2">
+                  <div className="flex items-start space-x-2">
+                    <Checkbox
+                      id="assignmentAgreement"
+                      checked={formData.assignmentAgreement}
+                      onCheckedChange={(checked) => handleInputChange("assignmentAgreement", checked as boolean)}
+                      className={errors.assignmentAgreement ? "border-red-500" : ""}
+                    />
+                    <div className="grid gap-1.5 leading-none">
+                      <Label
+                        htmlFor="assignmentAgreement"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Assignment <span className="text-red-500">*</span>
+                      </Label>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                        I understand that by submitting this request, I must complete the assignment (sent from tech@inovabeing.com) within 48 hours or be auto-rejected. Only then will I qualify for the technical and final rounds, and I acknowledge this is a startup role requiring independent ownership and execution.
+                      </p>
+                    </div>
                   </div>
+                  {errors.assignmentAgreement && <p className="text-sm text-red-500">{errors.assignmentAgreement}</p>}
                 </div>
-                {errors.assignmentAgreement && <p className="text-sm text-red-500">{errors.assignmentAgreement}</p>}
-              </div>
+              )}
+              {/* No special submission note for Content/Video Creator */}
 
               {/* Submit Status */}
               {submitStatus === "error" && (
@@ -630,23 +663,65 @@ ${formData.fullName}`
               )}
 
               {/* Submit Button */}
-              <Button
-                type="submit"
-                disabled={isSubmitting || !formData.assignmentAgreement}
-                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Submitting...
-                  </>
-                ) : (
-                  <>
-                    <Send className="h-4 w-4 mr-2" />
-                    Submit Application
-                  </>
-                )}
-              </Button>
+              {/* Submit Button and Success Message for Content/Video Creator */}
+              {job?.id === "freelance-content-video-creator-2025" ? (
+                <>
+                  {currentSubmitStatus === "success" && (
+                    <div className="mb-4 text-green-700 bg-green-50 dark:bg-green-900/20 p-3 rounded-md text-center">
+                      Application submitted successfully! We have received your details and portfolio. Our team will review your work and get back to you soon.
+                    </div>
+                  )}
+                  <Button
+                    type="submit"
+                    disabled={
+                      isSubmitting ||
+                      !formData.fullName.trim() ||
+                      !formData.email.trim() ||
+                      !formData.phone.trim() ||
+                      !formData.linkedinUrl.trim() ||
+                      !formData.projectUrl.trim() ||
+                      !formData.message.trim() ||
+                      !!errors.fullName ||
+                      !!errors.email ||
+                      !!errors.phone ||
+                      !!errors.linkedinUrl ||
+                      !!errors.projectUrl ||
+                      !!errors.message
+                    }
+                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4 mr-2" />
+                        Submit Application
+                      </>
+                    )}
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || !formData.assignmentAgreement}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4 mr-2" />
+                      Submit Application
+                    </>
+                  )}
+                </Button>
+              )}
             </form>
           </CardContent>
         </Card>

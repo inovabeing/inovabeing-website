@@ -28,6 +28,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
+    // Do not send assignment mail or webhook for Content & Video Creator role
+    if (
+      (jobTitle && jobTitle.toLowerCase().includes("content & video creator")) ||
+      (jobTitle && jobTitle.toLowerCase().includes("linkedin + reels"))
+    ) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Application submitted successfully",
+        },
+        { status: 200 },
+      )
+    }
+
     // Prepare form data for n8n webhook
     const formData = new FormData()
     formData.append("field-0", fullName.trim())

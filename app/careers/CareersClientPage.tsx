@@ -89,7 +89,7 @@ const jobOpenings: JobOpening[] = [
   
    {
     id: "ai-intern-2025",
-    title: "Product Engineer – AI Web Stack (Internship) @ Inovabeing",
+  title: "Product Engineer – AI Web Stack (Internship)",
     department: "AI Development | 3 Months | Work directly with the founder | 1 position only | Hyderabad",
     location: "Hybrid",
     type: "Internship",
@@ -122,82 +122,122 @@ const jobOpenings: JobOpening[] = [
     isActive: false,
   },
   {
-    id: "uiux-intern-2025",
-    title: "UI/UX Intern",
-    department: "System Process Automation | Internship | Hyderabad",
+    id: "db-engineer-sql-nosql-2025",
+  title: "Database Engineer (SQL/NoSQL)",
+    department: "Data Engineering | 2 Years Experience | Hyderabad",
     location: "Hybrid",
-    type: "Internship",
-    experience: "Entry Level",
-  description: "Are you ready to showcase your design skills in flows, transitions, and visual cues? Join Inovabeing as a UI/UX Intern and demonstrate how you create startup-ready, user-friendly designs. Work on real projects, collaborate with a passionate team, and make a visible impact on our products.",
+    type: "Full-time",
+    experience: "2+ Years",
+    description: "Own database design, performance, and reliability across SQL and NoSQL systems. Partner with backend teams to model data, build efficient queries, and support production deployments and migrations with CI/CD discipline.",
     thingsYoullDo: [
-      "Design complete end-to-end flows for mobile or web use cases.",
-      "Create smooth transitions and micro-interactions in Figma (preferred) or Adobe XD.",
-      "Show strong visual hierarchy through colors, spacing, and typography.",
-      "Translate requirements into a clean, consistent prototype that feels production-ready."
+      "Design and maintain relational schemas, indexes, and constraints for PostgreSQL/MySQL.",
+      "Optimize complex SQL queries, analyze execution plans, and resolve performance bottlenecks through indexing, partitioning, and schema refactoring.",
+      "Manage MongoDB collections, document models, aggregations, and plan for sharding and schema versioning.",
+      "Implement backup/restore and disaster-recovery routines, validate RPO/RTO with drills, and monitor database health and capacity.",
+      "Enforce RBAC, least-privilege access, secret management, and auditing for security and compliance.",
+      "Collaborate with engineers to translate use cases into normalized/denormalized data models.",
+      "Support versioned migrations with safe rollout/rollback strategies and CI/CD runbooks."
     ],
     requirements: [
-      "Basic to strong skills in UI/UX design tools (Figma preferred, Adobe XD or similar accepted).",
-      "Ability to demonstrate flows, transitions, and micro-interactions.",
-      "Strong sense of visual hierarchy (typography, spacing, colors, button states).",
-      "Ability to communicate design decisions in writing.",
-      "Commitment to completing and submitting a prototype challenge within 48 hours."
-    ],
-    benefits: [
-      "Transitions & Motion → Smooth navigation between screens.",
-      "Design Cues & Visual Hierarchy → Clear user guidance through design choices.",
-      "End-to-End Flow → A complete mini-journey, not just disconnected screens.",
-      "Consistency & Clarity → Simple, clean, startup-ready designs."
+      "2 years’ hands-on experience with PostgreSQL or MySQL (schema design, indexing, query tuning).",
+      "Working knowledge of MongoDB (document modeling, aggregation pipelines).",
+      "Strong SQL skills and understanding of isolation levels, locking, and ACID properties.",
+      "Experience operating databases in containerized/cloud environments and integrating with CI/CD pipelines.",
+      "Familiarity with backup/restore tooling, migration frameworks, and basic scripting (Bash/Python)."
     ],
     preferredSkills: [
-      "Tools: Figma (preferred), Adobe XD, or similar design tools.",
-      "Deliverables:",
-      "1. A Figma prototype link (with transitions enabled).",
-      "2. A short note (150–200 words) explaining your design choices for transitions and cues.",
-      "Deadline: 48 hours from receiving this brief."
+      "Replication/HA/failover setups (Postgres streaming replication, MySQL replicas, MongoDB replica sets).",
+      "Partitioning, connection pool tuning, and caching strategies.",
+      "Experience with observability stacks (Prometheus, Grafana, ELK).",
+      "Exposure to managed cloud DB services (GCP/AWS/Azure).",
+      "Understanding of data governance, PII handling, and auditing best practices."
     ],
-    isActive: true
+    benefits: [
+      "Competitive salary with annual performance bonus.",
+      "Opportunity to shape data foundations for AI-driven products.",
+      "Career growth pathway into Data Platform Engineer / DBA Lead.",
+      "Work with a fast-moving product and engineering team."
+    ],
+    isActive: true,
   },
   {
-    id: "midlevel-fullstack-engineer",
-    title: "Mid-Level Full Stack Engineer",
-    department: "Engineering",
-    location: "Hybrid (Hyderabad)",
-    type: "Full-Time",
-    experience: "3–5 years",
-    description: "We’re hiring a Mid-Level Full Stack Engineer to own end-to-end product development, from backend APIs to frontend UI, while managing infrastructure on GCP using Terraform. You’ll contribute to AI-driven products and enterprise-grade SaaS solutions, ensuring scalable, secure, and reliable deployments.",
+    id: "software-engineer-fullstack-2025",
+  title: "Software Engineer (Full-Stack, Code & Deploy)",
+    department: "Engineering | 2–3 Years Experience | Hyderabad",
+    location: "Hybrid",
+    type: "Full-time",
+    experience: "2–3 Years",
+  description: "Own end-to-end development: design and build backend services, ship clean UIs, and operate reliable deployments with containers and CI/CD on cloud (GCP/AWS/Azure). Collaborate across product, design, and AI teams to deliver features in tight, well-documented sprints.",
     thingsYoullDo: [
-      "Build scalable and secure backend APIs using Node.js/Express or Python/FastAPI.",
-      "Develop clean, responsive React/Next.js frontend applications.",
-      "Integrate internal products and client systems efficiently.",
-      "Manage cloud infrastructure on GCP (Cloud Run, Cloud SQL, Secret Manager, IAM).",
-      "Write and maintain Terraform configurations for infrastructure provisioning.",
-      "Follow TDD and implement automated unit tests, collaborating in 2-week sprints."
+      "Design, build, and maintain backend services in Python or Java with clean, modular, and well-tested code.",
+      "Develop user-facing features with React/Angular using TypeScript/JavaScript, and implement supporting services in Node.js where needed.",
+      "Design and manage schemas, queries, migrations, and performance tuning for PostgreSQL/MySQL.",
+      "Apply NoSQL patterns (MongoDB) when appropriate for document-based data needs.",
+      "Containerize applications with Docker and deploy to Kubernetes or equivalent platforms.",
+      "Operate workloads on GCP/AWS/Azure with cost-aware provisioning, IAM, and networking best practices.",
+      "Set up and maintain CI/CD pipelines with GitHub Actions, Jenkins, or GitLab CI.",
+      "Monitor release health, manage rollbacks, and participate in on-call/maintenance rotations.",
+      "Translate product requirements into technical tasks, write unit/integration tests, and maintain clear documentation.",
+      "Collaborate in 2-week sprints, conduct code reviews, and ship features to production quickly."
     ],
     requirements: [
-      "3–5 years experience as Full Stack Engineer.",
-      "Strong backend with Node.js/Express or Python/FastAPI/Flask.",
-      "Proficiency in React/Next.js for frontend.",
-      "Hands-on PostgreSQL (schema, queries, performance).",
-      "Experience deploying on GCP (Cloud Run, Cloud SQL, IAM, Secret Manager).",
-      "Knowledge of Terraform, CI/CD, TDD, unit testing, problem-solving, and communication."
+      "2–3 years’ experience building production software with Python or Java (solid OOP, data structures, and algorithms).",
+      "Frontend proficiency with React or Angular; working knowledge of Node.js.",
+      "Proficiency with Docker and basic Kubernetes concepts (pods, deployments, services, config/secrets).",
+      "Experience with CI/CD pipelines (GitHub Actions, GitLab, or Jenkins).",
+      "SQL fundamentals with PostgreSQL/MySQL and exposure to MongoDB.",
+      "Experience with at least one cloud provider (GCP/AWS/Azure).",
+      "Strong debugging skills, Git proficiency, and good documentation and communication habits."
     ],
     preferredSkills: [
-      "Docker & containerization.",
-      "Exposure to microservices architecture.",
-      "Familiarity with monitoring/logging tools (Stackdriver, Prometheus, ELK).",
-      "Experience in AI-driven products or high-scale SaaS systems.",
-      "Working knowledge of cloud security and IAM best practices.",
-      "Experience with automated deployment pipelines."
+      "Experience with Helm or managed Kubernetes services (GKE/EKS/AKS).",
+      "Observability tools such as Prometheus, Grafana, or ELK stack.",
+      "Security best practices (image scanning, secret management, least-privilege IAM).",
+      "Experience with message queues, caching, or pub-sub systems."
     ],
     benefits: [
-      "Monthly Salary: ₹60,000 (base).",
-      "Annual Performance Bonus based on company profitability and contributions.",
-      "Steep growth path to Senior Engineer / Tech Lead.",
-      "Opportunity to work on AI products and international SaaS deployments.",
-      "Hands-on experience with latest cloud technologies.",
-      "Chance to own end-to-end product lifecycle."
+      "Competitive salary with annual performance bonus.",
+      "Steep growth path to Senior Engineer / Tech Lead as we scale.",
+      "Opportunities to work on AI-driven products and international SaaS deployments.",
+      "Work with a fast-moving, product-focused engineering team."
     ],
-    isActive: true
+    isActive: true,
+  },
+  {
+    id: "freelance-content-video-creator-2025",
+    title: "Freelance Content & Video Creator (LinkedIn + Reels)",
+    department: "Marketing | Freelance / Project-based | Remote",
+    location: "Remote",
+    type: "Freelance",
+    experience: "Mid-level",
+    description: "Turn ideas, raw footage, and draft text into sharp LinkedIn posts and scroll-stopping reels. You’ll be the creative engine that amplifies INovaBeing’s journey and makes our content stand out on professional and social platforms.",
+    thingsYoullDo: [
+      "Edit raw videos (intern projects, founder updates, product explainers) into short-form reels optimized for LinkedIn, Instagram, and YouTube.",
+      "Draft and polish LinkedIn copy and posts that match INovaBeing’s brand voice.",
+      "Add captions, hooks, and storytelling angles to maximize engagement and reach.",
+      "Collaborate with the founder and UI/UX designer to align visuals and messaging.",
+      "Repurpose long-form content into bite-sized formats for multi-platform distribution.",
+      "Stay updated on social trends, especially in AI, startups, and automation."
+    ],
+    requirements: [
+      "Proven experience in short-form video editing (Premiere Pro, Final Cut, DaVinci Resolve, or AI-based tools).",
+      "Strong copywriting and editing skills tailored for professional platforms like LinkedIn.",
+      "Portfolio of past work — reels, shorts, LinkedIn posts, or ad copy required.",
+      "Ability to deliver quick turnarounds while maintaining quality standards.",
+      "Self-driven, creative, and able to work independently."
+    ],
+    preferredSkills: [
+      "Experience with AI/startup-related content.",
+      "Familiarity with growth-focused content strategies.",
+      "Basic design skills to adapt visuals when needed."
+    ],
+    benefits: [
+      "Flexible, remote work with control over your own schedule.",
+      "Opportunity for ongoing work and long-term collaboration.",
+      "Chance to shape the public voice of a fast-growing AI-first startup.",
+      "Competitive, project-based compensation."
+    ],
+    isActive: true,
   },
 ]
 
@@ -391,6 +431,21 @@ export function CareersClientPage() {
                             <Briefcase className="h-3 w-3" />
                             {job.experience}
                           </Badge>
+                          {job.id === "software-engineer-fullstack-2025" && (
+                            <Badge variant="outline" className="flex items-center gap-1 text-xs md:text-sm bg-green-100 text-green-800 border-green-300">
+                              2 Openings
+                            </Badge>
+                          )}
+                          {job.id === "db-engineer-sql-nosql-2025" && (
+                            <Badge variant="outline" className="flex items-center gap-1 text-xs md:text-sm bg-green-100 text-green-800 border-green-300">
+                              1 Opening
+                            </Badge>
+                          )}
+                          {job.id === "freelance-content-video-creator-2025" && (
+                            <Badge variant="outline" className="flex items-center gap-1 text-xs md:text-sm bg-green-100 text-green-800 border-green-300">
+                              1 Opening
+                            </Badge>
+                          )}
                         </div>
                       </div>
                     </CardHeader>
