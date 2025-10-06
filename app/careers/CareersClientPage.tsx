@@ -39,7 +39,6 @@ const jobOpenings: JobOpening[] = [
     requirements: [
       "Pursuing or recently completed a degree in Computer Science, AI/ML, or related fields",
       "Basic knowledge of Python",
-      "Familiarity with machine learning concepts",
       "Strong problem-solving mindset",
       "Good communication and collaboration skillsExcellent communication and teamwork abilities",
       "Curiosity and willingness to learn fast",
@@ -47,7 +46,6 @@ const jobOpenings: JobOpening[] = [
     benefits: [
       "Real-world AI project experience",
       "Direct mentorship from the founder and AI leads",
-      "Flexible work hours (remote/hybrid)",
       "Certificate of completion",
       "Access to latest AI tools & platforms",
       "Opportunity for full-time placement post-internship"
@@ -74,7 +72,6 @@ const jobOpenings: JobOpening[] = [
     requirements: [
       "3–4 years of proven experience in performance marketing or campaign management",
       "Strong track record of managing high-budget campaigns with measurable ROI",
-      "Hands-on expertise with Google Ads, Meta Ads Manager, and LinkedIn Campaign Manager",
       "Deep understanding of CAC, ROAS, CPL, CTR, and conversion rate optimization",
       "Ability to manage multiple campaigns and client accounts in parallel",
       "Analytical mindset with strong reporting, problem-solving, and communication skills"
@@ -82,15 +79,15 @@ const jobOpenings: JobOpening[] = [
     benefits: [
       "CTC: Market Standard",
       "Performance Bonus: Annual bonus up to 10% based on campaign ROI and KPIs",
-      "Team Setup: You'll work closely with our Social Media Associate who handles posting, blogs, and case studies, while you lead strategy, campaigns, and performance."
+      // no active flag inside array
     ],
-    isActive: true
+    isActive: false,
   },
   
-   {
-    id: "ai-intern-2025",
-  title: "Product Engineer – AI Web Stack (Internship)",
-    department: "AI Development | 3 Months | Work directly with the founder | 1 position only | Hyderabad",
+  {
+   id: "ai-intern-2025",
+    title: "Product Engineer – AI Web Stack (Internship)",
+   department: "AI Development | 3 Months | Work directly with the founder | 1 position only | Hyderabad",
     location: "Hybrid",
     type: "Internship",
     experience: "Entry Level",
@@ -158,7 +155,7 @@ const jobOpenings: JobOpening[] = [
       "Career growth pathway into Data Platform Engineer / DBA Lead.",
       "Work with a fast-moving product and engineering team."
     ],
-    isActive: true,
+    isActive: false,
   },
   {
     id: "software-engineer-fullstack-2025",
@@ -201,7 +198,7 @@ const jobOpenings: JobOpening[] = [
       "Opportunities to work on AI-driven products and international SaaS deployments.",
       "Work with a fast-moving, product-focused engineering team."
     ],
-    isActive: true,
+    isActive: false,
   },
   {
     id: "freelance-content-video-creator-2025",
@@ -237,7 +234,7 @@ const jobOpenings: JobOpening[] = [
       "Chance to shape the public voice of a fast-growing AI-first startup.",
       "Competitive, project-based compensation."
     ],
-    isActive: true,
+    isActive: false,
   },
 ]
 
@@ -475,7 +472,7 @@ export function CareersClientPage() {
                 <p className="text-gray-600 dark:text-gray-300 mb-6">
                   We don't have any open positions at the moment, but we're always looking for talented individuals.
                 </p>
-                <Button variant="outline">Join Our Talent Pool</Button>
+                {/* Join Our Talent Pool button removed per request */}
               </CardContent>
             </Card>
           )}
