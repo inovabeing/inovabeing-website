@@ -638,8 +638,9 @@ ${formData.fullName}`
                       >
                         Assignment <span className="text-red-500">*</span>
                       </Label>
+                      {/* Changed assignment window from 48 to 24 hours per request */}
                       <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-                        I understand that by submitting this request, I must complete the assignment (sent from tech@inovabeing.com) within 48 hours or be auto-rejected. Only then will I qualify for the technical and final rounds, and I acknowledge this is a startup role requiring independent ownership and execution.
+                        I understand that by submitting this request, I must complete the assignment (sent from tech@inovabeing.com) within 24 hours or be auto-rejected. Only then will I qualify for the technical and final rounds, and I acknowledge this is a startup role requiring independent ownership and execution.
                       </p>
                     </div>
                   </div>

@@ -104,7 +104,8 @@ const jobOpenings: JobOpening[] = [
       "Ability to use and adapt to AI dev tools (v0.dev, Replit, Copilot, etc.).",
       "Comfort with building/integrating user authentication, dashboards, payment gateways, and full-stack features.",
       "Your own laptop and a stable internet connection.",
-      "Drive to build, learn, and deploy—if you can launch a live website in 48 hours, you’ll fit right in",
+  // Updated phrasing: shortened challenge window from 48 to 24 hours per request
+  "Drive to build, learn, and deploy—if you can launch a live website in 24 hours, you’ll fit right in",
       "Bonus: Already tinkering with AI for coding, UI/UX, or automation",
     ],
     benefits: [
