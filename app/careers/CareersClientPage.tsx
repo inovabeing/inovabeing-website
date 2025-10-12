@@ -153,7 +153,7 @@ const jobOpenings: JobOpening[] = [
       "Competitive stipend (discussed during selection).",
       "Certificate of completion after successful internship.",
     ],
-    isActive: true,
+    isActive: false,
   },
   {
     id: "db-engineer-sql-nosql-2025",
